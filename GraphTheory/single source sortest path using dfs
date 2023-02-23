@@ -1,0 +1,61 @@
+//
+//  DFS.cpp
+//  GraphTheory
+//
+//  Created by RAJU MOLLA on 23/2/23.
+//
+
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <chrono>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstring>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <set>
+#include <vector>
+using namespace std;
+
+vector<int>v[10000];
+int vis[10000], dis[100000];
+
+void dfs(int node, int source){
+    vis[node] = 1;
+    dis[node] = source;
+    for(auto child: v[node]){
+        if(vis[child]==0){
+            dfs(child, source+1);
+        }
+    }
+}
+
+int main(){
+    int node, edge;
+    cin >> node >> edge;
+    
+    while(edge--){
+        int x, y;
+        cin >> x >> y;
+        v[x].push_back(y);
+        v[y].push_back(x);
+    }
+    cout << "Enter the sortest path source: ";
+    int x;
+    cin >> x;
+    dfs(x, 0);
+    
+    cout << "\nHere is the output:\n";
+    for(int i = 1; i <=node; i++){
+        cout << x <<" -> "<<i<< " : " <<dis[i] <<'\n';
+    }
+    
+}
